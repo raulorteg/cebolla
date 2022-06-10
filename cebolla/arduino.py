@@ -2,7 +2,7 @@ import serial
 from dataclasses import dataclass
 import datetime
 
-from settings import DATA_LOGGER_DIRECTORY
+from cebolla.settings import DATA_LOGGER_DIRECTORY
 
 @dataclass
 class Packet:

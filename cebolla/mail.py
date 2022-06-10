@@ -5,8 +5,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
 
-from process import generate_summary
-from settings import *
+from cebolla.process import generate_summary
+from cebolla.settings import *
 
 
 SMTP_SERVER = "smtp.mail.yahoo.com"
