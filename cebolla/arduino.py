@@ -1,35 +1,38 @@
-import serial
-from dataclasses import dataclass
 import datetime
+from dataclasses import dataclass
+
+import serial
 
 from cebolla.settings import DATA_LOG
+
 
 @dataclass
 class Packet:
     timestamp: str
-    moisture1:float
+    moisture1: float
     moisture2: float
     moisture3: float
     humidity: float
     temperature: float
-    
+
+
 def read_packet(ser: serial.Serial, port: str):
 
-    eos, sos = False, False # start of sequence, end of sequence
+    eos, sos = False, False  # start of sequence, end of sequence
     message = []
     while not sos:
-        newline = ser.readline() # read a byte string
-        string_n = newline.decode() # decode byte string into unicode
-        string = string_n.rstrip() # remove \n and \r
+        newline = ser.readline()  # read a byte string
+        string_n = newline.decode()  # decode byte string into unicode
+        string = string_n.rstrip()  # remove \n and \r
         if string == "sos":
             sos = True
             now = str(datetime.datetime.now())
             message.append(now)
 
     while not eos:
-        newline = ser.read_until(b"\n") # read a byte string
-        string_n = newline.decode() # decode byte string into unicode
-        string = string_n.rstrip() # remove \n and \r
+        newline = ser.read_until(b"\n")  # read a byte string
+        string_n = newline.decode()  # decode byte string into unicode
+        string = string_n.rstrip()  # remove \n and \r
         if string == "eos":
             eos = True
         else:
@@ -49,26 +52,30 @@ def read_from_serial(port: str):
             try:
                 packet = read_packet(ser, port)
                 print(
-                    packet.timestamp, 
+                    packet.timestamp,
                     packet.moisture1,
                     packet.moisture2,
                     packet.moisture3,
                     packet.humidity,
                     packet.temperature,
-                    sep=",", file=f)
+                    sep=",",
+                    file=f,
+                )
                 print(
-                    packet.timestamp, 
+                    packet.timestamp,
                     packet.moisture1,
                     packet.moisture2,
                     packet.moisture3,
                     packet.humidity,
                     packet.temperature,
-                    sep=",")
+                    sep=",",
+                )
 
             except Exception as e:
                 i += 1
                 print(f"Corrupted {i}: {e}")
         ser.close()
+
 
 if __name__ == "__main__":
     packet = read_from_serial(port="/dev/ttyACM0")
