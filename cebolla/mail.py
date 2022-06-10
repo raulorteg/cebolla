@@ -7,6 +7,7 @@ import typer
 
 from cebolla.process import generate_summary
 from cebolla.settings import *
+from cebolla.utils import get_username
 
 SMTP_SERVER = "smtp.mail.yahoo.com"
 SMTP_PORT = 587
@@ -37,8 +38,9 @@ def send_email(to: str):
     msgAlternative.attach(msgText)
 
     msgText = MIMEText(
-        '''
-        <b>Your update on the Plants status.
+        f'''
+        Dear {get_username()}, <br>
+        Here is your update on the Plants status.
         <br><img src="cid:image1"><br>
         <img src="cid:image2"><br>
         <img src="cid:image3"><br>
