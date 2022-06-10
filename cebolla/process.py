@@ -67,21 +67,21 @@ def generate_summary(period: str):
     plt.xlabel("Time")
     plt.ylabel("Analog moisture level")
     plt.legend()
-    plt.savefig(f"{PROCESSED_IMGS}/moistures.png")
+    plt.savefig(f"{LOGGER_DIRECTORY}/moistures.png")
 
     plt.close()
     plt.plot(data["Timestamp"], data["humidity"])
     plt.title(f"Air humidity for period: {title}")
     plt.xlabel("Time")
     plt.ylabel("Air humidity (%)")
-    plt.savefig(f"{PROCESSED_IMGS}/humidity.png")
+    plt.savefig(f"{LOGGER_DIRECTORY}/humidity.png")
 
     plt.close()
     plt.plot(data["Timestamp"], data["temperature"])
     plt.title(f"Temperatures for period: {title}")
     plt.xlabel("Time")
     plt.ylabel("Temperature (C)")
-    plt.savefig(f"{PROCESSED_IMGS}/temperature.png")
+    plt.savefig(f"{LOGGER_DIRECTORY}/temperature.png")
 
 
 if __name__ == "__main__":

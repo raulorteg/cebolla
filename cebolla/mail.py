@@ -13,7 +13,6 @@ SMTP_PORT = 587
 SMTP_USERNAME = MAIL
 SMTP_PASSWORD = PASSWORD
 EMAIL_FROM = MAIL
-EMAIL_TO = "example@gmail.com"
 EMAIL_SUBJECT = "Cebolla project Update"
 app = typer.Typer()
 
@@ -38,18 +37,23 @@ def send_email(to: str):
     msgAlternative.attach(msgText)
 
     msgText = MIMEText(
-        '<b>Your update on the Plants status. <br><img src="cid:image1"><br><img src="cid:image2"><br><img src="cid:image3"><br>',
+        '''
+        <b>Your update on the Plants status.
+        <br><img src="cid:image1"><br>
+        <img src="cid:image2"><br>
+        <img src="cid:image3"><br>
+        ''',
         "html",
     )
     msgAlternative.attach(msgText)
 
     # Attach Image
-    for attachment in attachments:
+    for i, attachment in enumerate(attachments):
         with open(attachment, "rb") as fp:
             msgImage = MIMEImage(fp.read())
 
         # Define the image's ID as referenced above
-        msgImage.add_header("Content-ID", "<image1>")
+        msgImage.add_header("Content-ID", f"<image{i+1}>")
         msgRoot.attach(msgImage)
 
     # debuglevel = True
@@ -58,7 +62,7 @@ def send_email(to: str):
     mail.set_debuglevel(debuglevel)
     mail.starttls()
     mail.login(SMTP_USERNAME, SMTP_PASSWORD)
-    mail.sendmail(EMAIL_FROM, EMAIL_TO, msgRoot.as_string())
+    mail.sendmail(EMAIL_FROM, to, msgRoot.as_string())
     mail.quit()
 
 
