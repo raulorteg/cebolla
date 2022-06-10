@@ -2,7 +2,7 @@ import serial
 from dataclasses import dataclass
 import datetime
 
-from cebolla.settings import DATA_LOGGER_DIRECTORY
+from cebolla.settings import DATA_LOG
 
 @dataclass
 class Packet:
@@ -42,7 +42,7 @@ def read_packet(ser: serial.Serial, port: str):
 
 
 def read_from_serial(port: str):
-    with open(DATA_LOGGER_DIRECTORY, "a+") as f:
+    with open(DATA_LOG, "a+") as f:
         ser = serial.Serial(port, 9600, timeout=0.5)
         i = 0
         while True:

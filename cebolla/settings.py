@@ -7,6 +7,6 @@ load_dotenv(dotenv_path)
 
 MAIL = os.environ.get("MAIL")
 PASSWORD = os.environ.get("PASSWORD")
-DATA_LOGGER_DIRECTORY="./logs/data.txt"
-PROCESSED_IMGS="./logs"
+LOGGER_DIRECTORY="/var/cebolla.logs"
+DATA_LOG=join(LOGGER_DIRECTORY, "data.txt")
 VALID_PROCESSING_PERIODS = ["day", "week", "month", "all"]

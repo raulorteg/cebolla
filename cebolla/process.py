@@ -13,7 +13,7 @@ def generate_summary(period: str):
         raise Exception(f"Period selected not valid, try {list_valid}. Your input: ({period})")
 
     # load the data
-    data = pd.read_csv(DATA_LOGGER_DIRECTORY,
+    data = pd.read_csv(DATA_LOG,
                         names=[
                             "Timestamp",
                             "moistures1",

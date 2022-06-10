@@ -2,6 +2,8 @@
 import smtplib
 from email.mime.text import MIMEText
 
+import typer
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
 
@@ -16,12 +18,15 @@ SMTP_PASSWORD = PASSWORD
 EMAIL_FROM = MAIL
 EMAIL_TO = "example@gmail.com"
 EMAIL_SUBJECT = "Cebolla project Update"
+app = typer.Typer()
 
 
-def send_email(to:str):
+@app.command()
+def send_email(to: str):
 
 
-    attachments = ["logs/moistures.png","logs/humidity.png","logs/temperature.png"]
+    attachments = ["moistures.png", "humidity.png","temperature.png"]
+    attachments = [join(LOGGER_DIRECTORY, at) for at in attachments]
 
     msgRoot = MIMEMultipart('related')
     msgRoot['Subject'] = EMAIL_SUBJECT
@@ -40,29 +45,13 @@ def send_email(to:str):
     msgAlternative.attach(msgText)
 
     #Attach Image 
-    fp = open("logs/moistures.png", 'rb') #Read image 
-    msgImage = MIMEImage(fp.read())
-    fp.close()
+    for attachment in attachments:
+        with open(attachment, 'rb') as fp:
+            msgImage = MIMEImage(fp.read())
 
-    # Define the image's ID as referenced above
-    msgImage.add_header('Content-ID', '<image1>')
-    msgRoot.attach(msgImage)
-
-    fp = open("logs/humidity.png", 'rb') #Read image 
-    msgImage = MIMEImage(fp.read())
-    fp.close()
-
-    # Define the image's ID as referenced above
-    msgImage.add_header('Content-ID', '<image2>')
-    msgRoot.attach(msgImage)
-
-    fp = open("logs/temperature.png", 'rb') #Read image 
-    msgImage = MIMEImage(fp.read())
-    fp.close()
-
-    # Define the image's ID as referenced above
-    msgImage.add_header('Content-ID', '<image3>')
-    msgRoot.attach(msgImage)
+        # Define the image's ID as referenced above
+        msgImage.add_header('Content-ID', '<image1>')
+        msgRoot.attach(msgImage)
 
     #debuglevel = True
     debuglevel = False
@@ -75,6 +64,4 @@ def send_email(to:str):
 
 if __name__=='__main__':
     generate_summary("all")
-    for to in EMAIL_TO:
-        send_email(to)
-        break
+    app()
