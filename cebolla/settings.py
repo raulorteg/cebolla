@@ -8,6 +8,9 @@ load_dotenv(dotenv_path)
 
 MAIL = os.environ.get("MAIL")
 PASSWORD = os.environ.get("PASSWORD")
-LOGGER_DIRECTORY = "/var/cebolla.logs"
+LOGGER_DIRECTORY = "/var/log/cebolla"
 DATA_LOG = join(LOGGER_DIRECTORY, "data.txt")
 VALID_PROCESSING_PERIODS = ["day", "week", "month", "all"]
+
+if not os.path.exists(LOGGER_DIRECTORY):
+    os.mkdir(LOGGER_DIRECTORY)
