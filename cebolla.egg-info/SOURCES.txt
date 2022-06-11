@@ -1,0 +1,13 @@
+setup.cfg
+setup.py
+cebolla/__init__.py
+cebolla/arduino.py
+cebolla/mail.py
+cebolla/process.py
+cebolla/settings.py
+cebolla.egg-info/PKG-INFO
+cebolla.egg-info/SOURCES.txt
+cebolla.egg-info/dependency_links.txt
+cebolla.egg-info/requires.txt
+cebolla.egg-info/top_level.txt
+cebolla.egg-info/zip-safe

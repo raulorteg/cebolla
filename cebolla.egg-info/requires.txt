@@ -1,0 +1,6 @@
+pyserial
+python-dotenv
+matplotlib
+numpy
+pandas
+typer
