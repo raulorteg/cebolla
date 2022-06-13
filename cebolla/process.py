@@ -56,18 +56,22 @@ def generate_summary(period: str):
 
     # generate the plots
     plt.close()
-    plt.plot(data["Timestamp"], data["moistures1"], alpha=0.6, color="blue", label="s1")
     plt.plot(
-        data["Timestamp"], data["moistures2"], alpha=0.6, color="green", label="s2"
+        data["Timestamp"], 100-100*(data["moistures1"]-280)/570, alpha=0.6, color="blue", label=SENSOR_NAMES["sensor1"]
+        )
+    plt.plot(
+        data["Timestamp"], 100-100*(data["moistures2"]-280)/570, alpha=0.6, color="green", label=SENSOR_NAMES["sensor2"]
     )
     plt.plot(
-        data["Timestamp"], data["moistures3"], alpha=0.6, color="orange", label="s3"
+        data["Timestamp"], 100-100*(data["moistures3"]-280)/570, alpha=0.6, color="orange", label=SENSOR_NAMES["sensor3"]
     )
     plt.title(f"Moisture levels for period: {title}")
     plt.xlabel("Time")
     plt.ylabel("Analog moisture level")
     plt.ylim([250,600])
+    plt.xticks(rotation=90)
     plt.legend()
+    plt.tight_layout()
     plt.savefig(f"{LOGGER_DIRECTORY}/moistures.png")
 
     plt.close()
@@ -75,7 +79,9 @@ def generate_summary(period: str):
     plt.title(f"Air humidity for period: {title}")
     plt.ylim([0,100])
     plt.xlabel("Time")
+    plt.xticks(rotation=90)
     plt.ylabel("Air humidity (%)")
+    plt.tight_layout()
     plt.savefig(f"{LOGGER_DIRECTORY}/humidity.png")
 
     plt.close()
@@ -83,7 +89,9 @@ def generate_summary(period: str):
     plt.title(f"Temperatures for period: {title}")
     plt.ylim([0,35])
     plt.xlabel("Time")
+    plt.xticks(rotation=90)
     plt.ylabel("Temperature (C)")
+    plt.tight_layout()
     plt.savefig(f"{LOGGER_DIRECTORY}/temperature.png")
 
 

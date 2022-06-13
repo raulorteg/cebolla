@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 dotenv_path = join(dirname(__file__), ".env")
 load_dotenv(dotenv_path)
 
+SENSOR_NAMES = {"sensor1": "Cactus", "sensor2": "Plant", "sensor3":"Basilicum"}
 MAIL = os.environ.get("MAIL")
 PASSWORD = os.environ.get("PASSWORD")
 LOGGER_DIRECTORY = "/var/log/cebolla"

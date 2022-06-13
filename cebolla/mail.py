@@ -41,6 +41,10 @@ def send_email(to: str):
         f'''
         Dear {get_username()}, <br>
         Here is your update on the Plants status.
+        <br>
+        Please note you cant unsuscribe from this service, this is not
+        optional. >:)
+        <br>
         <br><img src="cid:image1"><br>
         <img src="cid:image2"><br>
         <img src="cid:image3"><br>
@@ -58,7 +62,6 @@ def send_email(to: str):
         msgImage.add_header("Content-ID", f"<image{i+1}>")
         msgRoot.attach(msgImage)
 
-    # debuglevel = True
     debuglevel = False
     mail = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
     mail.set_debuglevel(debuglevel)
@@ -69,5 +72,5 @@ def send_email(to: str):
 
 
 if __name__ == "__main__":
-    generate_summary("all")
+    generate_summary("week")
     app()
